@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WiseLoan</string>
+    <string name="button_take_picture">Take a photo</string>
+    <string name="button_send">Analyse</string>
+</resources>
