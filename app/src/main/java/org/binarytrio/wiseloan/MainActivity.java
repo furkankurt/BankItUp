@@ -14,8 +14,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -23,6 +25,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,6 +44,15 @@ public class MainActivity extends AppCompatActivity {
     private File photo;
     private RequestQueue requestQueue;
     private ProgressBar progressBar;
+    private LinearLayout summaryLayout;
+    private TextView tvMoney;
+    private TextView tvPercentage;
+    private TextView tvAgreement;
+    private TextView tvTimer;
+    private TextView tvRecommendation;
+    private TextView tvTitle;
+    private TextView tvSubtitle;
+    private RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +81,15 @@ public class MainActivity extends AppCompatActivity {
         btSend = (Button) findViewById(R.id.bt_send);
         btSend.setOnClickListener(getSendButtonListener());
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        summaryLayout = (LinearLayout) findViewById(R.id.summary_layout);
+        tvAgreement = (TextView) findViewById(R.id.tv_agreement);
+        tvMoney = (TextView) findViewById(R.id.tv_money);
+        tvPercentage = (TextView) findViewById(R.id.tv_percentage);
+        tvTimer = (TextView) findViewById(R.id.tv_timer);
+        tvRecommendation = (TextView) findViewById(R.id.tv_recommendation);
+        tvTitle = (TextView) findViewById(R.id.title);
+        tvSubtitle = (TextView) findViewById(R.id.subtitle);
+        relativeLayout = (RelativeLayout) findViewById(R.id.layout_main);
     }
 
     @NonNull
@@ -76,13 +98,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent takePicIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
+                hide(summaryLayout);
+                hide(tvTitle);
+                hide(tvSubtitle);
                 if(takePicIntent.resolveActivity(getPackageManager()) != null) {
 
                     try {
                         createImageFile();
                     } catch (Exception e) {
-                        Toast.makeText(MainActivity.this, "Problem occured during phot creation", Toast.LENGTH_SHORT).show();
                     }
 
                     if (photo != null) {
@@ -144,8 +167,10 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        JsonObject responseObject = parse(response);
+                        setSummary(responseObject);
                         hide(progressBar);
-                        Toast.makeText(MainActivity.this, "Upload successfull" + response, Toast.LENGTH_SHORT).show();
+                        show(summaryLayout);
                         Log.d("Response", response);
                     }
                 }
@@ -202,4 +227,49 @@ public class MainActivity extends AppCompatActivity {
     private Bitmap getPhotoBitMap() {
         return BitmapFactory.decodeFile(photo.getAbsolutePath());
     }
+
+    public JsonObject parse(String jsonLine) {
+        return new JsonParser().parse(new JsonParser().parse(jsonLine).getAsString()).getAsJsonObject();
+    }
+
+    public void setSummary(JsonObject summary) {
+        String amount = summary.get("AMOUNT").toString();
+        String interest = summary.get("INTEREST").toString();
+        String loan_months = summary.get("LOAN_MONTHS").toString();
+        String total = summary.get("TOTAL").toString();
+
+        tvAgreement.setText("You borrowed:\n"+ amount + " PLN");
+        tvPercentage.setText("Your interest rate:\n" + interest + "%");
+        tvTimer.setText("Contract length:\n" + loan_months + " months");
+        tvMoney.setText("You will pay:\n" + total + " PLN");
+
+        String recommendation_text = getRecommendationText(InterestRateReccomendation.findByInterest(Double.parseDouble(interest)));
+
+        tvRecommendation.setText(recommendation_text);
+//        tvAgreement.setText(summary.get("AMOUNT").toString());
+//        tvAgreement.setTextSize(32);
+//        tvPercentage.setText(summary.get("INTEREST").toString());
+//        tvPercentage.setTextSize(32);
+//        tvTimer.setText(summary.get("LOAN_MONTHS").toString());
+//        tvTimer.setTextSize(32);
+//        tvMoney.setText(summary.get("TOTAL").toString());
+//        tvMoney.setTextSize(32);
+    }
+
+    private String getRecommendationText(InterestRateReccomendation interestRate) {
+        switch (interestRate) {
+            case HIGH_INTEREST:
+                relativeLayout.setBackgroundColor(getResources().getColor(R.color.darkred));
+                return "Warning, make sure its not a fraud!";
+            case MEDIUM_INTEREST:
+                relativeLayout.setBackgroundColor(getResources().getColor(R.color.darkyellow));
+                return "Maybe you should reconsider it.";
+            case LOW_INTEREST:
+                relativeLayout.setBackgroundColor(getResources().getColor(R.color.bzdark));
+                return "Contract and rules seem to be okay";
+        }
+        return null;
+    }
+
+
 }

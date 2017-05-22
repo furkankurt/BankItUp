@@ -3,7 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="bzgreen">#005f27</color>
+    <color name="bzdark">#005f27</color>
     <color name="white">#ffffff</color>
     <color name="mint">#0aa979</color>
+    <color name="bzlight">#009e61</color>
+    <color name="bzgreen">#005f27</color>
+    <color name="darkred">#8b0000</color>
+    <color name="darkyellow">#b2b200</color>
+    <color name="transparrent">#00000000</color>
 </resources>

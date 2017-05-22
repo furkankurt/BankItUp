@@ -4,36 +4,197 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_weight="2"
+    android:background="@color/bzdark"
     tools:context="org.binarytrio.wiseloan.MainActivity"
-    android:background="@color/bzgreen">
-    <ProgressBar
-        android:layout_width="wrap_content"
+    android:id="@+id/layout_main">
+
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/progress_bar"
+        android:textAlignment="center"
         android:layout_centerInParent="true"
-        android:visibility="gone"
-        />
+        android:textSize="200px"
+        android:text="FinePrint"
+        android:id="@+id/title"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:textSize="14dp"
+        android:layout_below="@id/title"
+        android:text="*We'll read that for you"
+        android:id="@+id/subtitle"/>
+
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:id="@+id/summary_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/layout_border"
+                    >
+
+
+                    <TextView
+                        android:textSize="18dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_percentage"
+                        android:textAlignment="center"
+                        android:layout_centerInParent="true"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="%"
+                        android:textSize="18dp"
+                        android:layout_below="@id/tv_percentage"
+                        android:textColor="@color/white"
+                        android:id="@+id/tv_percentage_no_edit"
+                        />
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/layout_border"
+                    >
+                    <TextView
+                        android:textSize="18dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:id="@+id/tv_timer"
+                        android:layout_centerInParent="true"
+                        />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_below="@id/tv_timer"
+                        android:src="@mipmap/ic_av_timer_white_24dp"
+                        android:id="@+id/iv_timer"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/layout_border"
+                    >
+                    <TextView
+                        android:textSize="18dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_agreement"
+                        android:textAlignment="center"
+                        android:layout_centerInParent="true"
+                        />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_agreement"
+                        android:layout_centerHorizontal="true"
+
+                        android:src="@mipmap/ic_receipt_white_24dp"
+                        android:id="@+id/iv_receipt"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/layout_border"
+                    >
+
+                    <TextView
+                        android:textSize="18dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_money"
+                        android:textAlignment="center"
+                        android:layout_centerInParent="true"
+                        />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_below="@id/tv_money"
+                        android:src="@mipmap/ic_attach_money_white_24dp"
+                        android:id="@+id/iv_money" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_recommendation"
+                android:textAlignment="center"
+                android:layout_centerInParent="true"
+                android:textSize="24dp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <LinearLayout
         android:id="@+id/layout_buttons"
-        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/bt_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/button_take_picture"
-            />
+            android:text="@string/button_take_picture" />
+
         <Button
+            android:id="@+id/bt_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/bt_send"
-            android:visibility="gone"
             android:text="@string/button_send"
-            />
+            android:visibility="gone" />
 
     </LinearLayout>
 
