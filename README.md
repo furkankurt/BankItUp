@@ -1,4 +1,6 @@
-# FinePrint
+
+
+![alt text](https://github.com/pared/BankItUp/blob/master/TheBinaryTrio-title.jpg?raw=true)
 
 Drobnym drukiem/ Fine PrintKażdy z Nas kiedyś podpisywał jakąś umowę. 
 Pożyczka, kredyt, umowa na telefon czy internet. Kiedy przeczytaliście i zrozumieliście całość? 
