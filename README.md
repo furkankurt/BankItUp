@@ -1,4 +1,4 @@
-# BankItUp
+# FinePrint
 
 Drobnym drukiem/ Fine PrintKażdy z Nas kiedyś podpisywał jakąś umowę. 
 Pożyczka, kredyt, umowa na telefon czy internet. Kiedy przeczytaliście i zrozumieliście całość? 
